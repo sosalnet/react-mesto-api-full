@@ -39,7 +39,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://sosalnet.github.io/react-mesto-auth/",
   "devDependencies": {
     "gh-pages": "^4.0.0"
   }
