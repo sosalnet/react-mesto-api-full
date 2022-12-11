@@ -11,12 +11,14 @@ module.exports = (req, res, next) => {
 
   const token = authorization.replace('Bearer ', '');
   let payload;
-  try {
-    payload = jwt.verify(token, 'super-strong-key');
-  } catch (err) {
-    return next(new UnauthorizedError('Авторизация необходима'));
-  }
+  const { JWT_SALT } = req.app.get('config');
 
-  req.user = payload;
-  return next();
+  try {
+    payload = jwt.verify(token, JWT_SALT);
+    req.user = payload;
+    next();
+  } catch (err) {
+    next(new UnauthorizedError('Необходима авторизация'));
+    next();
+  }
 };

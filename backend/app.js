@@ -9,7 +9,7 @@ const { login, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const { celebrateCreateUser, celebrateLoginUser } = require('./validators/users');
 const NotFoundError = require('./errors/NotFoundError');
-const { requestLogger, errorLogger } = require('./middlewares/logger.js');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 const config = dotenv.config({
@@ -31,6 +31,12 @@ app.use(cors({
 app.use(bodyParser.json());
 app.set('config', config);
 app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrateLoginUser, login);
 app.post('/signup', celebrateCreateUser, createUser);

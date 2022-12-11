@@ -10,19 +10,16 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
+      const { JWT_SALT } = req.app.get('config');
       const token = jwt.sign(
         { _id: user._id },
-        'super-strong-key',
+        JWT_SALT,
         { expiresIn: '7d' },
       );
       res.send({ token });
     })
     .catch((err) => {
-      if (err.name !== 'UnauthorizedError') {
-        next(new ServerError(err.message));
-      } else {
         next(err);
-      }
     });
 };
 
