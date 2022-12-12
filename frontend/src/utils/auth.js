@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.sosalnet.nomoredomains.club";
+export const BASE_URL = "http://api.sosalnet.nomoredomains.club";
 
 const checkResponse = (res) => {
     if (res.ok) {
