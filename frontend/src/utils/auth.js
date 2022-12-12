@@ -1,4 +1,4 @@
-export const BASE_URL = "http://api.sosalnet.nomoredomains.club";
+export const BASE_URL = "https://api.sosalnet.nomoredomains.club";
 
 const checkResponse = (res) => {
     if (res.ok) {
@@ -23,7 +23,7 @@ export const authorize = (email, password) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email: email, password: password })
+        body: JSON.stringify({ email, password })
     }).then(checkResponse);
 };
 
